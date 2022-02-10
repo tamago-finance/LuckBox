@@ -1,6 +1,10 @@
 [
     {
-        "address" : "0x9C01E0B8227eb869B479c12665b40Cc864C787a8",
-        "description" : "This collection made by Tamago Finance team, all slots are deposited with redeemable NFT from $1-$100 and guarantee output delivery."
+        "address": "0x9C01E0B8227eb869B479c12665b40Cc864C787a8",
+        "description": "This collection made by Tamago Finance team, all slots are deposited with redeemable NFT from $1-$100 and guarantee output delivery."
+    },
+    {
+        "address": "0x1cd5DdC32C851023ca5b59A04b267f3Ab31E4F0C",
+        "description": "Try your luck and win the one of the most popular GameFi's NFT on Polygon chain."
     }
 ]
