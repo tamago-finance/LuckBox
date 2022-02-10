@@ -112,7 +112,7 @@ const Box = styled.div`
 `
 
 const BoxHeader = styled(
-    ({ className, index, item , setLuckBoxSelected }) => {
+    ({ className, index, item, setLuckBoxSelected }) => {
 
         const COLORS = ["#1565C0", "#373B44", "#4286f4", "#8E2DE2"]
 
@@ -232,11 +232,18 @@ const BoxBody = styled(
                     <div>
                         {item.nftList.length > 0 && item.nftList.map((nft, index) => {
                             if (index > 3) return null
-                            const { tokenURI } = nft
+    
+                            let imageUrl
+
+                            if (nft && nft.tokenURI && nft.tokenURI.image_url) {
+                                imageUrl = nft.tokenURI.image_url
+                            } else if (nft && nft.tokenURI && nft.tokenURI.image) {
+                                imageUrl = nft.tokenURI.image
+                            }
 
                             return (
                                 <div className="image-box" key={index}>
-                                    <img src={tokenURI.image} alt="image" />
+                                    <img src={imageUrl} alt="image" />
                                 </div>
                             )
                         })}
