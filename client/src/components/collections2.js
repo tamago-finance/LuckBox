@@ -81,19 +81,6 @@ const LoadingText = styled(
 
     `
 
-const MainnetDiscliamer = styled(
-    ({ className }) => (<div className={className}><Alert color="info">The collection on Mainnet is being prepared, please stay tuned!</Alert></div>))`
-    font-size : 22px;
-
-    >div{
-        margin: auto;
-    }
-
-    .alert {
-        padding: 5px 20px 5px 20px;
-    }
-
-    `
 
 const Boxes = styled.div`
 
@@ -209,14 +196,16 @@ const BoxHeader = styled(
     `
 
 const BoxBody = styled(
-    ({ className, odd, item }) => {
+    ({ className, odd, item, currentNetwork }) => {
 
         if (!item) {
             return null
         }
 
         const collection = collections.find(col => item.boxAddress === col.address)
-
+        const PREFIX_URL = currentNetwork === "mainnet" ? "https://etherscan.io/address/" : "https://polygonscan.com/address/"
+        const CURRENCY = currentNetwork === "mainnet" ? "ETH" : "MATIC"
+        
         return (
             <div className={className}>
                 <div className={odd ? "odd" : "even"}>
@@ -225,9 +214,9 @@ const BoxBody = styled(
                         <p>
                             {collection && collection.description || ""}
                         </p>
-                        <b>Creator Address:</b>{` `}<a href={`https://polygonscan.com/address/${item.owner}`} target="_blank">{(item && item.owner) ? shortAddress(item.owner, 7, -5) : ""}</a>
+                        <b>Creator Address:</b>{` `}<a href={`${PREFIX_URL}${item.owner}`} target="_blank">{(item && item.owner) ? shortAddress(item.owner, 7, -5) : ""}</a>
                         <br />
-                        <b>Ticket Price:</b>{` `}{item.ticketPrice || "0"}{` `}MATIC
+                        <b>Ticket Price:</b>{` `}{item.ticketPrice || "0"}{` `}{CURRENCY}
                     </div>
                     <div>
                         {item.nftList.length > 0 && item.nftList.map((nft, index) => {
@@ -355,9 +344,7 @@ const Collection2 = ({
             </Title>
 
             <Switcher />
-
-            {currentNetwork === "mainnet" && <MainnetDiscliamer />}
-
+ 
             {/* when loading */}
             {!allBoxesDetail && (<LoadingText />)}
 
@@ -371,9 +358,9 @@ const Collection2 = ({
                             <Box key={index}>
                                 {odd
                                     ?
-                                    <><BoxHeader setLuckBoxSelected={setLuckBoxSelected} item={item} index={index} /><BoxBody item={item} odd={odd} /></>
+                                    <><BoxHeader setLuckBoxSelected={setLuckBoxSelected} item={item} index={index} /><BoxBody item={item} odd={odd} currentNetwork={currentNetwork} /></>
                                     :
-                                    <><BoxBody item={item} odd={odd} /><BoxHeader setLuckBoxSelected={setLuckBoxSelected} item={item} index={index} /></>
+                                    <><BoxBody item={item} odd={odd} currentNetwork={currentNetwork} /><BoxHeader setLuckBoxSelected={setLuckBoxSelected} item={item} index={index} /></>
                                 }
                             </Box>
                         )

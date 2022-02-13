@@ -6,7 +6,7 @@ import ERC721ABI from "../../abi/ERC721.json"
 import ERC1155ABI from "../../abi/ERC1155.json"
 import axios from "axios"
 
-const fetchLuckBoxes = async (luckBoxesToFetch) => {
+const fetchLuckBoxes = async (luckBoxesToFetch, rpcServer) => {
   const data = await Promise.all(
     luckBoxesToFetch.map(async (luckBoxConfig) => {
       const { boxAddress } = luckBoxConfig
@@ -37,7 +37,7 @@ const fetchLuckBoxes = async (luckBoxesToFetch) => {
             address: boxAddress,
             name: "lastQueue",
           },
-        ])
+        ], rpcServer)
 
       const resultData = await Promise.all(
         Array(parseInt(resultCount[0]))
@@ -51,7 +51,7 @@ const fetchLuckBoxes = async (luckBoxesToFetch) => {
               },
             ]
 
-            const [result] = await multicall(LuckBoxABI, calls)
+            const [result] = await multicall(LuckBoxABI, calls, rpcServer)
 
             return {
               requestId: result.requestId,
@@ -81,7 +81,7 @@ const fetchLuckBoxes = async (luckBoxesToFetch) => {
               name: "reserveQueue",
               params: [i],
             },
-          ])
+          ], rpcServer)
           if (reserveData.assetAddress !== ethers.constants.AddressZero) {
             const erc721Calls = [
               {
@@ -100,8 +100,8 @@ const fetchLuckBoxes = async (luckBoxesToFetch) => {
             ]
 
             let [tokenURI] = reserveData.is1155
-              ? await multicall(ERC1155ABI, erc1155Calls)
-              : await multicall(ERC721ABI, erc721Calls)
+              ? await multicall(ERC1155ABI, erc1155Calls, rpcServer)
+              : await multicall(ERC721ABI, erc721Calls, rpcServer)
 
             tokenURI = reserveData.is1155 ? tokenURI[0] : tokenURI
 
@@ -158,7 +158,7 @@ const fetchLuckBoxes = async (luckBoxesToFetch) => {
               },
             ]
 
-            const [nftBox] = await multicall(LuckBoxABI, calls)
+            const [nftBox] = await multicall(LuckBoxABI, calls, rpcServer)
             if (nftBox.assetAddress !== ethers.constants.AddressZero) {
               const erc721Calls = [
                 {
@@ -177,8 +177,8 @@ const fetchLuckBoxes = async (luckBoxesToFetch) => {
               ]
 
               let [tokenURI] = nftBox.is1155
-                ? await multicall(ERC1155ABI, erc1155Calls)
-                : await multicall(ERC721ABI, erc721Calls)
+                ? await multicall(ERC1155ABI, erc1155Calls, rpcServer)
+                : await multicall(ERC721ABI, erc721Calls, rpcServer)
 
               tokenURI = nftBox.is1155 ? tokenURI[0] : tokenURI
 

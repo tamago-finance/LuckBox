@@ -47,8 +47,7 @@ const fetchFactory = async (factoryToFetch, rpcServer) => {
           },
         ]
 
-        const [name, symbol, owner, boxAddress, isBanned, isApproved] =
-          await multicall(FactoryABI, calls)
+        const [name, symbol, owner, boxAddress, isBanned, isApproved] = await multicall(FactoryABI, calls, rpcServer)
 
         if (!isApproved[0] || isBanned[0]) return
 
