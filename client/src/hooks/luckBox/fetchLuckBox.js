@@ -206,9 +206,23 @@ const fetchLuckBoxes = async (luckBoxesToFetch, rpcServer) => {
                   // hard-coded for Crypto Empire
                   tokenObj = {}
                   tokenObj.data = {"name":`AVATAR OF BANCOR THE \"PRODIGY\" #${nftBox.tokenId}`,"description":"CryptoEmpire Avatars are gifts to the early community members and NFT card holders of the CryptoEmpire project. 3,000 avatars, inspired by the CryptoEmpire NFTs, were distributed to select addresses.","external_url":"https://cryptoempire.cards/","image": `https://assets.cryptoempire.cards/avatars/${nftBox.tokenId}.png`}
-                } else {
+                } else if (tokenURI && tokenURI.toString().indexOf("https://metadata.maonft.com/api/rpc") !== -1) {
+                  // hard-coded for MAO DAO
+                  tokenObj = {}
+                  let tokenNumber = Number(nftBox.tokenId)
+                  if (tokenNumber < 1000) {
+                    tokenNumber = `0${tokenNumber}`
+                  } else {
+                    tokenNumber = `${tokenNumber}`
+                  }
+                  tokenObj.data = {"name":`Ready Player Cat #${nftBox.tokenId}`,"description":"Ready Player Cat (RPC) is the mascot of the MAO DAO gaming metaverse. They are only born one at a time from loot boxes, and each celebrate distinctive qualities and visual characteristics. RPC Genesis is a curated collection of 5,000 unique RPC NFTs on the Ethereum blockchain that also represent MAO DAO membership.","external_url":"https://maonft.com/rpc/4990","image":`https://asset.maonft.com/rpc/${tokenNumber}.png`,"attributes":[{"trait_type":"ID","value":4990},{"trait_type":"Background","value":"Salt"},{"trait_type":"Cloth","value":"Elton"},{"trait_type":"Eye","value":"Ray Ban"},{"trait_type":"Hair","value":"Afro Hair"}]}
+                }
+                
+                else {
                   tokenObj = await axios.get(tokenURI)
                 }
+
+                
 
                 // replace pinata node with IPFS node
                 if (
