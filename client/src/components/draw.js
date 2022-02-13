@@ -430,6 +430,11 @@ const Drawing = ({
   onDraw,
   ticketPrice
 }) => {
+
+  const { currentNetwork } = useContext(FactoryContext)
+
+  const CURRENCY = currentNetwork === "mainnet" ? "ETH" : "MATIC"
+
   return (
     <DrawingContainer>
       {account && owner.toLowerCase() === account.toLowerCase() && (
@@ -443,7 +448,7 @@ const Drawing = ({
           Wallet is not connected
         </div>
       )}
-      <TicketPrice>Price: {ticketPrice} MATIC</TicketPrice>
+      <TicketPrice>Price: {ticketPrice}{` `}{CURRENCY}</TicketPrice>
     </DrawingContainer>
   )
 }
@@ -568,7 +573,7 @@ const ResultContainer = ({ data, account, onClaim }) => {
 
 const Draw2 = ({ data, setLuckBoxSelected, toggleManageSelected }) => {
   const { account, library } = useWeb3React()
-  const { increaseTick, tick } = useContext(FactoryContext)
+  const { increaseTick, tick, currentNetwork } = useContext(FactoryContext)
   const { nftList, ticketPrice, resultData, boxAddress, owner } = data
   const { draw, claimNft } = useLuckBox(boxAddress, account, library)
 
@@ -576,6 +581,8 @@ const Draw2 = ({ data, setLuckBoxSelected, toggleManageSelected }) => {
   const [selectedNftDetail, setSelectedNftDetail] = useState()
   const [detailData, setDetailData] = useState()
   const [congratModalOpen, setCongratModalOpen] = useState(false)
+
+  const CURRENCY = currentNetwork === "mainnet" ? "ETH" : "MATIC"
 
   const toggleCongratModal = () => {
     setCongratModalOpen(!congratModalOpen)
@@ -902,7 +909,7 @@ const Draw2 = ({ data, setLuckBoxSelected, toggleManageSelected }) => {
             Wallet is not connected
           </div>
         )}
-        <TicketPrice>Price: {ticketPrice} MATIC</TicketPrice>
+        <TicketPrice>Price: {ticketPrice}{` `}{CURRENCY}</TicketPrice>
         <Steps>
           <u>To Play</u>
           <ol>

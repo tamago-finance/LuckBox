@@ -56,12 +56,13 @@ const Provider = ({ children }) => {
     10000
   )
 
+  const FACTORY_ADDRESS = currentNetwork === "mainnet" ? FACTORY_MAINNET : FACTORY_POLYGON
+  const RPC_SERVER = currentNetwork === "mainnet" ? MAINNET_RPC_SERVER : POLYGON_RPC_SERVER
+
   const getFactory = useCallback(async () => {
 
     try {
 
-      const FACTORY_ADDRESS = currentNetwork === "mainnet" ? FACTORY_MAINNET : FACTORY_POLYGON
-      const RPC_SERVER = currentNetwork === "mainnet" ? MAINNET_RPC_SERVER : POLYGON_RPC_SERVER
       const data = await fetchFactory(FACTORY_ADDRESS, RPC_SERVER)
       console.log("data -->", data)
       setFactoryDetail(data)
@@ -75,12 +76,12 @@ const Provider = ({ children }) => {
 
     }
 
-  }, [currentNetwork])
+  }, [FACTORY_ADDRESS, RPC_SERVER ])
 
-  const getAllBoxesDetail = async () => {
+  const getAllBoxesDetail = useCallback(async () => {
 
     try {
-      const data = await fetchLuckBox(factoryDetail)
+      const data = await fetchLuckBox(factoryDetail, RPC_SERVER)
 
       setAllBoxesDetail(data)
     } catch (e) {
@@ -88,8 +89,7 @@ const Provider = ({ children }) => {
 
     }
 
-
-  }
+  },[factoryDetail, RPC_SERVER])
 
   useEffect(() => {
     if (!factoryDetail) return
