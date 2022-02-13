@@ -391,7 +391,7 @@ const NftDetails = ({ selectedNftDetail, imageUrl }) => {
         <>
           <hr />
           <p>
-            The value-backed NFT was invented by Tamago Finance team, each represents specific amount of US currency. The NFT can be redeemed as its price tag into collateral tokens of WMATIC and USDC. 
+            The value-backed NFT was invented by Tamago Finance team, each represents specific amount of US currency. The NFT can be redeemed as its price tag into collateral tokens of WMATIC and USDC.
           </p>
 
           <p>
@@ -416,6 +416,67 @@ const NftDetails = ({ selectedNftDetail, imageUrl }) => {
           </p>
         </>
       )}
+
+      {selectedNftDetail && selectedNftDetail.assetAddress === "0x448dd9D2015260EF5f94fB0b9a38514034e98967" && (
+        <>
+          <hr />
+          <p>
+            The value-backed NFT was invented by Tamago Finance team, each represents specific amount of US currency. The NFT can be redeemed as its price tag into collateral tokens of WETH and USDC.
+          </p>
+
+          <p>
+            Links :{" "}
+            <a
+              href='https://opensea.io/collection/lucky-red-envelope-on-mainnet'
+              target='_blank'
+            >
+              OpenSea
+            </a>
+            ,{" "}
+            <a href='https://www.twitter.com/tamagofinance' target='_blank'>
+              Twitter
+            </a>
+            ,{" "}
+            <a
+              href='https://app-v2.tamago.finance/'
+              target='_blank'
+            >
+              Redeem
+            </a>
+          </p>
+        </>
+      )}
+
+      {selectedNftDetail && selectedNftDetail.assetAddress === "0xcdb7C1a6fE7e112210CA548C214F656763E13533" && (
+        <>
+          <hr />
+          <p>
+          Ready Player Cat (RPC) is the mascot of the MAO DAO gaming metaverse. They are only born one at a time from loot boxes, and each celebrate distinctive qualities and visual characteristics. RPC Genesis is a curated collection of 5,000 unique RPC NFTs on the Ethereum blockchain that also represent MAO DAO membership.
+          </p>
+
+          <p>
+            Links :{" "}
+            <a
+              href='https://opensea.io/collection/ready-player-cat-nft'
+              target='_blank'
+            >
+              OpenSea
+            </a>
+            ,{" "}
+            <a href='https://www.twitter.com/maodaonft' target='_blank'>
+              Twitter
+            </a>
+            ,{" "}
+            <a
+              href='https://maonft.com/'
+              target='_blank'
+            >
+              Website
+            </a>
+          </p>
+        </>
+      )}
+
 
     </NftDetailsContainer>
   )

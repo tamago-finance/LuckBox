@@ -32,7 +32,7 @@ const Provider = ({ children }) => {
       }
     },
     {
-      currentNetwork: "polygon"
+      currentNetwork: "mainnet"
     }
   )
 
